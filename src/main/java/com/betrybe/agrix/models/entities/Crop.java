@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.time.LocalDate;
 import lombok.Data;
 
 
@@ -31,6 +32,12 @@ public class Crop {
 
   @Column(name = "planted_area")
   private Double plantedArea;
+
+  @Column(name = "planted_date")
+  private LocalDate plantedDate;
+
+  @Column(name = "harvest_date")
+  private LocalDate harvestDate;
 
   public Crop() {
   }

@@ -80,7 +80,8 @@ public class FarmController {
     Crop crop = farmService.createCrop(farmId, cropDto.toCrop());
 
     CropDto cropDtoResponse = 
-        new CropDto(crop.getId(), crop.getName(), farmId, crop.getPlantedArea());
+        new CropDto(crop.getId(), crop.getName(), farmId, crop.getPlantedArea(), 
+            crop.getPlantedDate(), crop.getHarvestDate());
 
     return cropDtoResponse;
   }
@@ -93,7 +94,8 @@ public class FarmController {
   public List<CropDto> getAllCropsFromFarm(@PathVariable Long farmId) {
     List<Crop> crops = farmService.getAllCropsFromFarm(farmId);
     List<CropDto> cropsDto = crops.stream()
-        .map(crop -> new CropDto(crop.getId(), crop.getName(), farmId, crop.getPlantedArea()))
+        .map(crop -> new CropDto(crop.getId(), crop.getName(), farmId, crop.getPlantedArea(), 
+            crop.getPlantedDate(), crop.getHarvestDate()))
         .toList();
 
     return cropsDto;

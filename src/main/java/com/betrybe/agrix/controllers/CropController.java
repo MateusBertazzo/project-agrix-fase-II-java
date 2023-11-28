@@ -37,8 +37,9 @@ public class CropController {
     List<CropDtos> cropsDto = crops.stream()
         .map(crop -> 
             new CropDtos(
-                crop.getId(), crop.getName(), crop.getFarm().getId(), crop.getPlantedArea()))
-                .toList();
+                crop.getId(), crop.getName(), crop.getFarm().getId(), 
+                  crop.getPlantedArea(), crop.getPlantedDate(), crop.getHarvestDate()))
+                  .toList();
 
     return cropsDto;
   }
@@ -52,7 +53,8 @@ public class CropController {
   public CropDtos getCropById(@PathVariable Long id) {
     Crop crop = cropService.getCropById(id);
     CropDtos cropServiceResponse = 
-        new CropDtos(crop.getId(), crop.getName(), crop.getFarm().getId(), crop.getPlantedArea());
+        new CropDtos(crop.getId(), crop.getName(), crop.getFarm().getId(), crop.getPlantedArea(), 
+            crop.getPlantedDate(), crop.getHarvestDate());
 
     return cropServiceResponse;
   }
