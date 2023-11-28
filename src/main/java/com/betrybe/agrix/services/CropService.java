@@ -37,10 +37,13 @@ public class CropService {
     return crop.get();
   }
 
+  /**
+   * Get crop by harvestDateBetween.
+   */
   public List<Crop> getCropByHarvestDateBetween(LocalDate start, LocalDate end) {
     List<Crop> crops = cropRepository.findByHarvestDateBetween(start, end);
 
-    if(crops.isEmpty()) {
+    if (crops.isEmpty()) {
       throw new CropNotFoundException();
     }
 
