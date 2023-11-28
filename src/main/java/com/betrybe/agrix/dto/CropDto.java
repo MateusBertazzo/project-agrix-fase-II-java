@@ -17,7 +17,6 @@ public record CropDto(Long id, String name, Long farmId, Double plantedArea,
   public Crop toCrop() {
     Farm farm = new Farm();
     farm.setId(farmId);
-    return new Crop(id, name, farm, plantedArea);
+    return new Crop(id, name, farm, plantedArea, plantedDate, harvestDate);
   }
 }
-
