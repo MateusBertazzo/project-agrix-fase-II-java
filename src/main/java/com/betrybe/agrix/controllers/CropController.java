@@ -3,6 +3,7 @@ package com.betrybe.agrix.controllers;
 import com.betrybe.agrix.dto.CropDtos;
 import com.betrybe.agrix.models.entities.Crop;
 import com.betrybe.agrix.services.CropService;
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -57,5 +58,19 @@ public class CropController {
             crop.getPlantedDate(), crop.getHarvestDate());
 
     return cropServiceResponse;
+  }
+
+  @GetMapping("/search")
+  @ResponseStatus(HttpStatus.OK)
+  public List<CropDtos> getCropByHarvestDateBetween(LocalDate start, LocalDate end) {
+    List<Crop> crops = cropService.getCropByHarvestDateBetween(start, end);
+    List<CropDtos> cropsDto = crops.stream()
+        .map(crop -> 
+            new CropDtos(
+                crop.getId(), crop.getName(), crop.getFarm().getId(), 
+                  crop.getPlantedArea(), crop.getPlantedDate(), crop.getHarvestDate()))
+                  .toList();
+
+    return cropsDto;
   }
 }
