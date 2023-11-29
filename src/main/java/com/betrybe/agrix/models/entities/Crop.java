@@ -7,9 +7,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
+import java.util.List;
 import lombok.Data;
 
 
@@ -38,6 +41,12 @@ public class Crop {
 
   @Column(name = "harvest_date")
   private LocalDate harvestDate;
+
+  @ManyToMany
+  @JoinTable(name = "crops_fertilizers",
+      joinColumns = @JoinColumn(name = "crop_id"),
+      inverseJoinColumns = @JoinColumn(name = "fertilizer_id"))
+  private List<Fertilizer> fertilizers;
 
   public Crop() {
   }
