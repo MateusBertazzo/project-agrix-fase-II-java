@@ -2,7 +2,10 @@ package com.betrybe.agrix.services;
 
 import com.betrybe.agrix.exceptions.CropNotFoundException;
 import com.betrybe.agrix.models.entities.Crop;
+import com.betrybe.agrix.models.entities.Fertilizer;
 import com.betrybe.agrix.models.repositories.CropRepository;
+import com.betrybe.agrix.models.repositories.FertilizerRepository;
+import com.betrybe.agrix.exceptions.FertilizerNotFoundException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -14,9 +17,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class CropService {
   private final CropRepository cropRepository;
+  private final FertilizerRepository fertilizerRepository;
 
-  public CropService(CropRepository cropRepository) {
+  public CropService(CropRepository cropRepository, FertilizerRepository fertilizerRepository) {
     this.cropRepository = cropRepository;
+    this.fertilizerRepository = fertilizerRepository;
   }
 
   /**
@@ -48,5 +53,18 @@ public class CropService {
     }
 
     return crops;
+  }
+
+  public Crop addFertilizerByCrop(Long cropId, long FertilizerId) {
+    Crop crop = cropRepository.findById(cropId).orElseThrow(() -> new CropNotFoundException());
+
+    Fertilizer fertilizer = fertilizerRepository.findById(FertilizerId)
+      .orElseThrow(() -> new FertilizerNotFoundException());
+
+    fertilizer.getCrops().add(crop);
+    crop.getFertilizers().add(fertilizer);
+
+    fertilizerRepository.save(fertilizer);
+    return cropRepository.save(crop);
   }
 }
