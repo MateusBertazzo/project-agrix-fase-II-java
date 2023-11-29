@@ -58,7 +58,7 @@ public class CropService {
   /**
    * Add a Fertilizer By/To Crop.
    */
-  public Crop addFertilizerByCrop(Long cropId, long fertilizerId) {
+  public void addFertilizerByCrop(Long cropId, long fertilizerId) {
     Crop crop = cropRepository.findById(cropId).orElseThrow(() -> new CropNotFoundException());
 
     Fertilizer fertilizer = fertilizerRepository.findById(fertilizerId)
@@ -68,6 +68,5 @@ public class CropService {
     crop.getFertilizers().add(fertilizer);
 
     fertilizerRepository.save(fertilizer);
-    return cropRepository.save(crop);
   }
 }
