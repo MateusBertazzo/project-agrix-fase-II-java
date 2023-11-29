@@ -1,5 +1,6 @@
 package com.betrybe.agrix.services;
 
+import com.betrybe.agrix.dto.FertilizerDto;
 import com.betrybe.agrix.exceptions.CropNotFoundException;
 import com.betrybe.agrix.exceptions.FertilizerNotFoundException;
 import com.betrybe.agrix.models.entities.Crop;
@@ -68,5 +69,14 @@ public class CropService {
     crop.getFertilizers().add(fertilizer);
 
     fertilizerRepository.save(fertilizer);
+  }
+
+  /**
+   * Get all fertilizers by crop id.
+   */
+  public List<Fertilizer> getAllFertilizersByCropId(long cropId) {
+    cropRepository.findById(cropId).orElseThrow(() -> new CropNotFoundException());
+
+    return fertilizerRepository.findFertilizerByCropId(cropId);  
   }
 }
