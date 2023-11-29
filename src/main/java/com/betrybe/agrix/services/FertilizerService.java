@@ -1,5 +1,6 @@
 package com.betrybe.agrix.services;
 
+import com.betrybe.agrix.exceptions.FertilizerNotFoundException;
 import com.betrybe.agrix.models.entities.Fertilizer;
 import com.betrybe.agrix.models.repositories.FertilizerRepository;
 import java.util.List;
@@ -25,5 +26,10 @@ public class FertilizerService {
 
   public List<Fertilizer> getAllFertilizers() {
     return fertilizerRepository.findAll();
+  }
+
+  public Fertilizer getFarmById(Long id) {
+    return fertilizerRepository.findById(id)
+        .orElseThrow(() -> new FertilizerNotFoundException());
   }
 }
