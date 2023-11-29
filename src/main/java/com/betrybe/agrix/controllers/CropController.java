@@ -78,6 +78,9 @@ public class CropController {
     return cropsDto;
   }
 
+  /** 
+  * Add Fertilizer By/To Crop. 
+  */
   @PostMapping("/{cropId}/fertilizers/{fertilizerId}")
   @ResponseStatus(HttpStatus.CREATED)
   public String addFertilizerByCrop(@PathVariable Long cropId, @PathVariable Long fertilizerId) {

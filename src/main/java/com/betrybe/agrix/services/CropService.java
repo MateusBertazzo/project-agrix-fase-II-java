@@ -1,11 +1,11 @@
 package com.betrybe.agrix.services;
 
 import com.betrybe.agrix.exceptions.CropNotFoundException;
+import com.betrybe.agrix.exceptions.FertilizerNotFoundException;
 import com.betrybe.agrix.models.entities.Crop;
 import com.betrybe.agrix.models.entities.Fertilizer;
 import com.betrybe.agrix.models.repositories.CropRepository;
 import com.betrybe.agrix.models.repositories.FertilizerRepository;
-import com.betrybe.agrix.exceptions.FertilizerNotFoundException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -55,11 +55,14 @@ public class CropService {
     return crops;
   }
 
-  public Crop addFertilizerByCrop(Long cropId, long FertilizerId) {
+  /**
+   * Add a Fertilizer By/To Crop.
+   */
+  public Crop addFertilizerByCrop(Long cropId, long fertilizerId) {
     Crop crop = cropRepository.findById(cropId).orElseThrow(() -> new CropNotFoundException());
 
-    Fertilizer fertilizer = fertilizerRepository.findById(FertilizerId)
-      .orElseThrow(() -> new FertilizerNotFoundException());
+    Fertilizer fertilizer = fertilizerRepository.findById(fertilizerId)
+        .orElseThrow(() -> new FertilizerNotFoundException());
 
     fertilizer.getCrops().add(crop);
     crop.getFertilizers().add(fertilizer);
